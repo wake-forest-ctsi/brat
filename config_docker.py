@@ -56,6 +56,8 @@ WORK_DIR = join(BASE_DIR, 'work')
 
 USER_PASSWORD = {
 #     (add USERNAME:PASSWORD pairs below this line.)
+    os.getenv('USER_NAME') : os.getenv('USER_PASS'),
+
 }
 
 

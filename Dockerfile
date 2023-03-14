@@ -26,6 +26,11 @@ RUN python -m pip install -r requirements.txt
 ARG DEBUG=False
 ENV DEBUG=$DEBUG
 
+# BRAT user setup
+ENV ADMIN_CONTACT_EMAIL=example@admin.com
+ENV USER_NAME=user
+ENV USER_PASS=pass
+
 COPY ./config_docker.py /app/config.py
 RUN mkdir -p /app/data \
     && mkdir -p /app/work

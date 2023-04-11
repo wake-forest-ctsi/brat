@@ -1,44 +1,20 @@
-# For more information, please refer to https://aka.ms/vscode-docker-python
-# FROM python:3.8-slim
-FROM python:2.7.18
+FROM httpd:2.4
 
-# Keeps Python from generating .pyc files in the container
-ENV PYTHONDONTWRITEBYTECODE=1
+# Install Python2
+RUN apt-get update
+RUN apt-get install -y python2
+RUN ln -s  /usr/bin/python2.7 /usr/bin/python
 
-# Turns off buffering for easier container logging
-ENV PYTHONUNBUFFERED=1
-
-WORKDIR /app
-COPY . /app
-
-# Create and activate a virtual environment
-RUN python -m virtualenv /opt/venv
-
-ENV PATH="/opt/venv/bin:$PATH"
-
-RUN python -m pip install --upgrade pip \
-    && python -m pip install -r requirements.txt
-
-# Install pip requirements
-# COPY requirements.txt .
-RUN python -m pip install -r requirements.txt
-
-ARG DEBUG=False
-ENV DEBUG=$DEBUG
+# Copy file and apache config
+COPY . /usr/local/apache2/htdocs
+COPY ./httpd/httpd.conf /usr/local/apache2/conf
+RUN mv /usr/local/apache2/htdocs/config_docker.py /usr/local/apache2/htdocs/config.py
 
 # BRAT user setup
 ENV ADMIN_CONTACT_EMAIL=example@admin.com
 ENV USER_NAME=user
 ENV USER_PASS=pass
 
-COPY ./config_docker.py /app/config.py
-RUN mkdir -p /app/data \
-    && mkdir -p /app/work
-
-# Creates a non-root user with an explicit UID and adds permission to access the /app folder
-# For more info, please refer to https://aka.ms/vscode-docker-python-configure-containers
-RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /app
-USER appuser
-
-# During debugging, this entry point will be overridden. For more information, please refer to https://aka.ms/vscode-docker-python-debug
-CMD ["python", "standalone.py"]
+# Manage server user file permissions
+RUN chgrp -R www-data /usr/local/apache2/htdocs
+RUN chmod -R 575 /usr/local/apache2/htdocs

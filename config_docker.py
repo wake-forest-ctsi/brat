@@ -50,14 +50,13 @@ WORK_DIR = join(BASE_DIR, 'work')
 #
 #     'USERNAME': 'PASSWORD',
 #
-# For example, user `editor` and password `annotate`:
+ For example, user `editor` and password `annotate`:
 #
 #     'editor': 'annotate',
 
 USER_PASSWORD = {
 #     (add USERNAME:PASSWORD pairs below this line.)
-    os.getenv('USER_NAME') : os.getenv('USER_PASS'),
-
+        'user': 'pass'
 }
 
 

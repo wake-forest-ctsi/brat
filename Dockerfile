@@ -1,9 +1,8 @@
 FROM httpd:2.4
 
-# Install Python2
+# Install Python3
 RUN apt-get update
-RUN apt-get install -y python2
-RUN ln -s  /usr/bin/python2.7 /usr/bin/python
+RUN apt-get install -y python3
 
 # Copy file and apache config
 COPY . /usr/local/apache2/htdocs

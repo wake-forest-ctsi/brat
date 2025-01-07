@@ -31,9 +31,6 @@ ADMIN_CONTACT_EMAIL = os.getenv('ADMIN_CONTACT_EMAIL')
 #     DATA_DIR: directory containing texts and annotations
 #     WORK_DIR: directory that the server uses for temporary files
 #
-# BASE_DIR = CHANGE_ME
-# DATA_DIR = CHANGE_ME
-# WORK_DIR = CHANGE_ME
 
 # If you have installed brat as suggested in the installation
 # instructions, you can set up BASE_DIR, DATA_DIR and WORK_DIR by
@@ -50,7 +47,7 @@ WORK_DIR = join(BASE_DIR, 'work')
 #
 #     'USERNAME': 'PASSWORD',
 #
- For example, user `editor` and password `annotate`:
+#For example, user `editor` and password `annotate`:
 #
 #     'editor': 'annotate',
 
